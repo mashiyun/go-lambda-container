@@ -76,7 +76,7 @@ The command '/bin/sh -c yum install -y golang' returned a non-zero code: 1
 ```
 
 ```zsh
-# ビルド
+# ビルド(local1)
 $ docker build -f ./build/local1/Dockerfile -t hello-world-lambda-local .
 
 # ローカル起動確認
@@ -85,7 +85,7 @@ $ docker build -f ./build/local1/Dockerfile -t hello-world-lambda-local .
 
 # エラーが出る。Lambdaのパラメータが設定されていないのが原因のようだ。
 
-# local2のDockerfileを試す。RIEが入っているバージョン
+# ビルド(local2)。RIEが入っているバージョン
 $ docker build -f ./build/local2/Dockerfile -t hello-world-lambda-local .
 $ docker run -p 9000:8080 hello-world-lambda-local:latest /main
 16 Feb 2022 07:37:11,150 [INFO] (rapid) exec '/main' (cwd=/var/task, handler=)
@@ -99,4 +99,21 @@ $ % curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations
 }
 
 # 結果を取得できる
+
+# dockerイメージの軽量化を試す
+
+# ビルド(local3)
+$ docker build -f ./build/local3/Dockerfile -t hello-world-lambda-local .
+
+# サイズの確認
+$ docker images
+hello-world-lambda-local             latest    a82e971edd53   10 seconds ago   25MB
+<none>                               <none>    c8615b42673f   14 seconds ago   598MB
+
+# local2では300M程度だったが1/10になっている
+$ docker run -p 9000:8080 hello-world-lambda-local:latest /main
+17 Feb 2022 16:03:20,442 [INFO] (rapid) exec '/main' (cwd=/, handler=)
+
+# 同じように起動できた
+
 ```
