@@ -115,5 +115,12 @@ $ docker run -p 9000:8080 hello-world-lambda-local:latest /main
 17 Feb 2022 16:03:20,442 [INFO] (rapid) exec '/main' (cwd=/, handler=)
 
 # 同じように起動できた
+# 動作に問題ないようであれば、リリース用のイメージを作成する
 
+# ビルド(prod1)
+$ docker build -f ./build/prod1/Dockerfile -t hello-world .
+
+$ docker images
+hello-world                          latest    3c2c94462543   5 seconds ago   13.9MB
+# さらに容量が小さい！
 ```
