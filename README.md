@@ -27,7 +27,7 @@ go get -u
 ```
 
 Docker イメージの作成\
-ビルド時にエラーとなることがある。ゆめみ VPN を通すことによって解決できた。（ドメイン制限されている？）
+ビルド時にエラーとなることがある。VPN を通すことによって解決できた。（ドメイン制限されている？）
 
 ```
 #=>(553) % docker build -f ./build/local2/Dockerfile -t hello-world-lambda-local .
