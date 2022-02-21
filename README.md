@@ -123,4 +123,10 @@ $ docker build -f ./build/prod1/Dockerfile -t hello-world .
 $ docker images
 hello-world                          latest    3c2c94462543   5 seconds ago   13.9MB
 # さらに容量が小さい！
+
+# ビルド(local4)
+$ docker build -f ./build/local4/Dockerfile -t gin-lambda-local .
+docker run -p 9000:8080 gin-lambda-local:latest /main
+
+$ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"pathParameters": {"year": "2013", "title": "Rush"} }'  | jq .
 ```
