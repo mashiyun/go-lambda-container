@@ -6,11 +6,11 @@ golang と AWS lambda コンテナのサンプル
 
 - app1 は go の基本サンプル
 
-## ディレクトリ定義
+# ディレクトリ定義
 
 https://github.com/golang-standards/project-layout/blob/master/README_ja.md
 
-## Reday
+# Reday
 
 go modules について\
 https://qiita.com/propella/items/e49bccc88f3cc2407745
@@ -128,5 +128,19 @@ hello-world                          latest    3c2c94462543   5 seconds ago   13
 $ docker build -f ./build/local4/Dockerfile -t gin-lambda-local .
 docker run -p 9000:8080 gin-lambda-local:latest /main
 
-$ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"pathParameters": {"year": "2013", "title": "Rush"} }'  | jq .
+# ローカルでの動作確認。api-gatewayの動作もRIEで再現できる。
+$ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"resource":"/{proxy+}","path":"/test","httpMethod":"GET","headers":null,"multiValueHeaders":null,"queryStringParameters":null,"multiValueQueryStringParameters":null,"stageVariables":null,"requestContext":{"resourcePath":"/{proxy+}","httpMethod":"GET","path":"/{proxy+}"}}'  | jq .
+[GIN-debug] GET    /test                     --> main.init.0.func1 (3 handlers)
+[GIN-debug] GET    /                         --> main.init.0.func2 (3 handlers)
+[GIN-debug] GET    /ping                     --> main.init.0.func3 (3 handlers)
+
+# ビルド(prod2)
+$ docker build -f ./build/prod2/Dockerfile -t gin-lambda .
 ```
+
+# 参考
+
+https://github.com/awslabs/aws-lambda-go-api-proxy\
+https://github.com/aws/aws-lambda-runtime-interface-emulator\
+https://github.com/aws-samples/aws-cdk-examples\
+https://github.com/aws-samples/aws-cdk-lambda-container\
