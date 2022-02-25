@@ -2,6 +2,8 @@
 
 ```zsh
 # AWS側にリポジトリの登録を行う
+リポジトリの登録をしていないと、retryが永遠と続いてしまう。。
+
 REPOSITORY_NAME=hello-world
 AWS_REGION=ap-northeast-1
 
