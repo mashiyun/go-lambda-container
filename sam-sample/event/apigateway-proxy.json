@@ -1,0 +1,16 @@
+{
+  "resource": "/{proxy+}",
+  "path": "/ping",
+  "httpMethod": "GET",
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "stageVariables": null,
+  "headers": null,
+  "multiValueHeaders": null,
+  "requestContext": {
+    "stage": "prod",
+    "path": "{proxy+}",
+    "resourcePath": "/{proxy+}",
+    "httpMethod": "GET"
+  }
+}
